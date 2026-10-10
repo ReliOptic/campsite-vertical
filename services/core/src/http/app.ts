@@ -79,6 +79,9 @@ export function createApp(d: AppDeps) {
     return empty(204, { 'Set-Cookie': clearSession() });
   });
 
+  // Dev-only: trigger the cron sweep on demand (local verification of scheduled runs).
+  r.post('/dev/sweep', async (req) => { if (!d.config.devAccounts || !sameOrigin(req)) return json({ error: { code: 'NOT_FOUND' } }, 404); return json(await d.runtime.sweep()); });
+
   // ---- me / model / runtime -------------------------------------------------
   r.get('/api/me', async (req, _p, ctx) => json(await d.identity.me(await auth(req, ctx))));
   r.get('/api/runtime', async (req, _p, ctx) => { const p = await auth(req, ctx); return json(await d.runtime.status(p.workspaceId, p.runtimeId)); });

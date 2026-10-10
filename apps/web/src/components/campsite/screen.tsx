@@ -137,7 +137,7 @@ function VistaStage({ vista, owned, emptyText, run, onSwipe, onRetry }: StagePro
                 <div className="mt-6">
                   <p className="text-[12px] text-muted">{copy.forMe.scenes}</p>
                   <ol className="mt-2 flex flex-col gap-1">
-                    {vista.scenes.map(s => <li key={s.id}><button type="button" onClick={() => { frame.current?.scene(s.id); setScene(s.id); setPlaying(true); }} className={`w-full rounded-[12px] px-3 py-2 text-left text-[15px] ${scene === s.id ? 'bg-ink text-paper' : 'hover:bg-mist'}`} data-testid={`scene-${s.id}`}>{s.label}<span className="float-right text-[12px] opacity-60">{Math.round(s.atMs / 1000)}s</span></button></li>)}
+                    {vista.scenes.map(s => <li key={s.id}><button type="button" onClick={() => { frame.current?.scene(s.id); setScene(s.id); setPlaying(true); vs.onState({ scene: s.id, atMs: s.atMs, fold: 'open' }); }} className={`w-full rounded-[12px] px-3 py-2 text-left text-[15px] ${scene === s.id ? 'bg-ink text-paper' : 'hover:bg-mist'}`} data-testid={`scene-${s.id}`}>{s.label}<span className="float-right text-[12px] opacity-60">{Math.round(s.atMs / 1000)}s</span></button></li>)}
                   </ol>
                 </div>
               )}

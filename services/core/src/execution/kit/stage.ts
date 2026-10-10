@@ -35,6 +35,6 @@ export const STAGE_JS = String.raw`
     requestAnimationFrame(tick);
   }
   requestAnimationFrame(tick);
-  window.addEventListener('load',function(){ if(window.Campsite){ Campsite.onScene=function(id){var s=scenes.filter(function(x){return x.id===id;})[0];if(s)Campsite.seek(s.atMs);}; Campsite.onRestore=function(state){ if(state&&typeof state.atMs==='number'){Campsite.seek(state.atMs);} else if(state&&typeof state.scene==='string'){Campsite.onScene(state.scene);} }; } });
+  window.addEventListener('load',function(){ if(window.Campsite){ Campsite.onScene=function(id){var s=scenes.filter(function(x){return x.id===id;})[0];if(s){Campsite.seek(s.atMs);current=s;Campsite.scene(s.id,s.atMs);Campsite.state({scene:s.id,atMs:s.atMs});}}; Campsite.onRestore=function(state){ if(state&&typeof state.atMs==='number'){Campsite.seek(state.atMs);} else if(state&&typeof state.scene==='string'){Campsite.onScene(state.scene);} }; } });
 })();
 `;

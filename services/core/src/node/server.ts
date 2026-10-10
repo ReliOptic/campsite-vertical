@@ -52,7 +52,7 @@ export async function startServer(opts: ServerOptions) {
       const request = toRequest(req, appOrigin);
       const url = new URL(request.url);
       if (url.pathname.startsWith('/v/')) { await sendResponse(res, new Response('not found', { status: 404 })); return; }
-      const isApi = url.pathname.startsWith('/api/') || url.pathname.startsWith('/auth/') || url.pathname.startsWith('/runner/');
+      const isApi = url.pathname.startsWith('/api/') || url.pathname.startsWith('/auth/') || url.pathname.startsWith('/runner/') || url.pathname.startsWith('/dev/');
       if (!isApi) { const s = serveStatic(url.pathname); if (s) { await sendResponse(res, s); return; } }
       await sendResponse(res, await core.app.fetch(request));
     } catch (e) { res.statusCode = 500; res.end('internal'); console.error(e); }

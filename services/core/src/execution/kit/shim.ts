@@ -4,7 +4,7 @@
  * Vista → Host: campsite:ready{durationMs?} | campsite:state{state} | campsite:scene{sceneId, atMs?}
  * The iframe runs with an opaque origin, so messages carry no secrets and the host validates `event.source`.
  */
-export const SHIM_VERSION = '1.0.0';
+export const SHIM_VERSION = '1.0.1';
 export const SHIM_SOURCE = String.raw`
 (function () {
   "use strict";
@@ -47,6 +47,8 @@ export const SHIM_SOURCE = String.raw`
   };
   window.Campsite = Campsite;
   window.addEventListener("message", function (ev) {
+    // Ignore our own posts (at top level, parent === window): only the host may command the Vista.
+    if (ev.source === window) return;
     var d = ev && ev.data; if (!d || typeof d !== "object" || !HOST_TYPES[d.type]) return;
     switch (d.type) {
       case "campsite:play": Campsite.play(); break;
