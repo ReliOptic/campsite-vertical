@@ -18,3 +18,16 @@ export const Brief = z.string().trim().min(1).max(4000);
 export const MutationHeaders = z.object({'Idempotency-Key':z.string().min(8).max(128)});
 export type PlanName = z.infer<typeof Plan>;
 export type ProfileData = z.infer<typeof Profile>;
+// Inferred TypeScript types (same names as the schemas; value and type namespaces are separate).
+export type Id=z.infer<typeof Id>;
+export type DateTime=z.infer<typeof DateTime>;
+export type Plan=z.infer<typeof Plan>;
+export type RunStatus=z.infer<typeof RunStatus>;
+export type RunTrigger=z.infer<typeof RunTrigger>;
+export type Phase=z.infer<typeof Phase>;
+export type FailCode=z.infer<typeof FailCode>;
+export type ErrorCode=z.infer<typeof ErrorCode>;
+export type ErrorResponse=z.infer<typeof ErrorResponse>;
+export type Limits=z.infer<typeof Limits>;
+export type Brief=z.infer<typeof Brief>;
+export type MutationHeaders=z.infer<typeof MutationHeaders>;

@@ -11,3 +11,8 @@ export const StatePatchOp=z.discriminatedUnion('op',[
 export const CommitState=z.object({baseStateRevision:z.number().int().nonnegative(),idempotencyKey:z.string().min(8).max(128),patch:z.array(StatePatchOp).min(1).max(64)}).strict();
 export const VistaStateResponse=z.object({stateRevision:z.number().int().nonnegative(),state:SemanticState,updatedAt:DateTime.nullable()}).strict();
 export const CommitStateResponse=z.object({status:z.enum(['persisted','conflict']),stateRevision:z.number().int().nonnegative(),state:SemanticState}).strict();
+// Inferred TypeScript types (same names as the schemas; value and type namespaces are separate).
+export type StatePatchOp=z.infer<typeof StatePatchOp>;
+export type CommitState=z.infer<typeof CommitState>;
+export type VistaStateResponse=z.infer<typeof VistaStateResponse>;
+export type CommitStateResponse=z.infer<typeof CommitStateResponse>;

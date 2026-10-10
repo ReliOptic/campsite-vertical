@@ -16,3 +16,10 @@ export const DEFAULT_MODEL_OPTIONS:z.infer<typeof ModelOption>[]=[
   {id:'anthropic/claude-opus-4.1',label:'Claude Opus 4.1',tier:'frontier'},
 ];
 export function keyHint(key:string):string{return key.length<=8?'…':`${key.slice(0,8)}…${key.slice(-4)}`;}
+// Inferred TypeScript types (same names as the schemas; value and type namespaces are separate).
+export type ModelProvider=z.infer<typeof ModelProvider>;
+export type OpenRouterKey=z.infer<typeof OpenRouterKey>;
+export type ConnectModel=z.infer<typeof ConnectModel>;
+export type ModelConnection=z.infer<typeof ModelConnection>;
+export type ModelOption=z.infer<typeof ModelOption>;
+export type ModelResponse=z.infer<typeof ModelResponse>;

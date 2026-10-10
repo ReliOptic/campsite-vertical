@@ -13,3 +13,12 @@ export const SubscriptionsResponse=z.object({items:z.array(Subscription)}).stric
 // Fork (Q1): copy a published Vista revision and its channel brief into the caller's workspace, preserving origin.
 export const ForkRequest=z.object({vistaId:Id,rerun:z.boolean().optional()}).strict();
 export const ForkResponse=z.object({channelId:Id,vistaId:Id,runId:Id.nullable()}).strict();
+// Inferred TypeScript types (same names as the schemas; value and type namespaces are separate).
+export type Publisher=z.infer<typeof Publisher>;
+export type PublishResponse=z.infer<typeof PublishResponse>;
+export type DiscoveryResponse=z.infer<typeof DiscoveryResponse>;
+export type Subscribe=z.infer<typeof Subscribe>;
+export type Subscription=z.infer<typeof Subscription>;
+export type SubscriptionsResponse=z.infer<typeof SubscriptionsResponse>;
+export type ForkRequest=z.infer<typeof ForkRequest>;
+export type ForkResponse=z.infer<typeof ForkResponse>;

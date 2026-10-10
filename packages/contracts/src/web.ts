@@ -25,3 +25,24 @@ export const AskResponse=z.object({answer:z.string().min(1).max(4000),modelId:z.
 export type ChannelData=z.infer<typeof Channel>;
 export type FeedItemData=z.infer<typeof FeedItem>;
 export { Origin };
+// Inferred TypeScript types (same names as the schemas; value and type namespaces are separate).
+export type User=z.infer<typeof User>;
+export type UsageCount=z.infer<typeof UsageCount>;
+export type ModelSummary=z.infer<typeof ModelSummary>;
+export type MeResponse=z.infer<typeof MeResponse>;
+export type Schedule=z.infer<typeof Schedule>;
+export type ChannelOrigin=z.infer<typeof ChannelOrigin>;
+export type Channel=z.infer<typeof Channel>;
+export type ChannelsResponse=z.infer<typeof ChannelsResponse>;
+export type CreateChannel=z.infer<typeof CreateChannel>;
+export type CreateChannelResponse=z.infer<typeof CreateChannelResponse>;
+export type UpdateChannel=z.infer<typeof UpdateChannel>;
+export type CreateRun=z.infer<typeof CreateRun>;
+export type CreateRunResponse=z.infer<typeof CreateRunResponse>;
+export type RunResponse=z.infer<typeof RunResponse>;
+export type FeedResponse=z.infer<typeof FeedResponse>;
+export type OAuthCallback=z.infer<typeof OAuthCallback>;
+export type DevLogin=z.infer<typeof DevLogin>;
+export type RuntimeResponse=z.infer<typeof RuntimeResponse>;
+export type AskRequest=z.infer<typeof AskRequest>;
+export type AskResponse=z.infer<typeof AskResponse>;

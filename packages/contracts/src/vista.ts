@@ -40,3 +40,18 @@ export const VistaMessage=z.discriminatedUnion('type',[
 ]);
 export type VistaManifest=z.infer<typeof Manifest>;
 export type SemanticStateData=z.infer<typeof SemanticState>;
+// Inferred TypeScript types (same names as the schemas; value and type namespaces are separate).
+export type ArtifactPath=z.infer<typeof ArtifactPath>;
+export type ArtifactFile=z.infer<typeof ArtifactFile>;
+export type Aspect=z.infer<typeof Aspect>;
+export type VistaFeature=z.infer<typeof VistaFeature>;
+export type Scene=z.infer<typeof Scene>;
+export type Caption=z.infer<typeof Caption>;
+export type Manifest=z.infer<typeof Manifest>;
+export type Origin=z.infer<typeof Origin>;
+export type FeedItem=z.infer<typeof FeedItem>;
+export type VistaResponse=z.infer<typeof VistaResponse>;
+export type HostMessage=z.infer<typeof HostMessage>;
+export type SemanticState=z.infer<typeof SemanticState>;
+export type ReadyMessage=z.infer<typeof ReadyMessage>;
+export type VistaMessage=z.infer<typeof VistaMessage>;
