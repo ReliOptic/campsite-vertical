@@ -1,1 +1,22 @@
-{"name":"campsite-r58","private":true,"type":"module","packageManager":"pnpm@10.11.0","scripts":{"build":"pnpm -r build","typecheck":"pnpm -r typecheck","test":"pnpm -r test","contracts":"pnpm --filter @campsite/contracts verify"},"devDependencies":{"typescript":"^5.8.3","tsx":"^4.19.4","@types/node":"^22.15.0"}}
+{
+  "name": "campsite-vertical",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@10.11.0",
+  "scripts": {
+    "offline-install": "node scripts/offline-install.mjs",
+    "build": "pnpm -r build",
+    "typecheck": "pnpm -r typecheck",
+    "test": "pnpm -r test",
+    "contracts": "pnpm --filter @campsite/contracts verify",
+    "build:web": "node apps/web/scripts/build.mjs",
+    "dev": "node apps/web/scripts/build.mjs && pnpm -C services/core dev",
+    "e2e": "node e2e/vertical.mjs"
+  },
+  "devDependencies": {
+    "typescript": "^5.8.3",
+    "tsx": "^4.19.4",
+    "@types/node": "^22.15.0"
+  },
+  "version": "6.0.0"
+}
