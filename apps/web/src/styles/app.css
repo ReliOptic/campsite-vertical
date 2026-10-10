@@ -1,0 +1,63 @@
+@import "tailwindcss";
+
+/* Campsite tokens — white ground, charcoal ink, brand tints used only as placeholders/accents. */
+@theme {
+  --color-paper: #FFFFFF;
+  --color-snow: #FAF9F6;
+  --color-ink: #1F1F1F;
+  --color-stone: #D7D7D2;
+  --color-mist: #EFEFEC;
+  --color-muted: #6B6B6B;
+  --color-butter: #FFE7C7;
+  --color-sky: #D6E6FF;
+  --color-lavender: #E9D6FF;
+  --font-sans: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Noto Sans KR", "Segoe UI", system-ui, sans-serif;
+  --radius-pill: 999px;
+  --ease-enter: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --ease-exit: cubic-bezier(0.4, 0, 0.8, 0.2);
+  --ease-change: cubic-bezier(0.2, 0, 0, 1);
+  --duration-open: 320ms;
+  --duration-close: 240ms;
+  --duration-receipt: 180ms;
+  --duration-text: 120ms;
+  --duration-result: 220ms;
+  --duration-relayout: 180ms;
+}
+
+@layer base {
+  html, body, #root { height: 100%; }
+  body { margin: 0; background: #E9E9E6; color: var(--color-ink); font-family: var(--font-sans); -webkit-font-smoothing: antialiased; overflow: hidden; }
+  button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+  button:focus-visible, a:focus-visible, textarea:focus-visible, input:focus-visible { outline: 2px solid var(--color-ink); outline-offset: 3px; }
+  textarea, input { font: inherit; }
+}
+
+/* The phone screen itself: everything inside is logical px of the device fixture. */
+.screen { position: relative; width: 100%; height: 100%; overflow: hidden; background: var(--color-paper); }
+.screen-push { transform-origin: 50% 100%; will-change: transform; }
+
+/* Sheet from the top (Muse-style). Screen content is pushed down, sheet descends. */
+.sheet-enter { animation: sheet-in var(--duration-open) var(--ease-enter) both; }
+.sheet-exit { animation: sheet-out var(--duration-close) var(--ease-exit) both; }
+@keyframes sheet-in { from { transform: translateY(-24px); opacity: 0; } to { transform: none; opacity: 1; } }
+@keyframes sheet-out { from { transform: none; opacity: 1; } to { transform: translateY(-16px); opacity: 0; } }
+.backdrop-enter { animation: fade-in var(--duration-receipt) var(--ease-enter) both; }
+.backdrop-exit { animation: fade-out var(--duration-receipt) var(--ease-exit) both; }
+@keyframes fade-in { from { opacity: 0; } to { opacity: 0.28; } }
+@keyframes fade-out { from { opacity: 0.28; } to { opacity: 0; } }
+.receipt-enter { animation: receipt-in var(--duration-receipt) var(--ease-enter) both; }
+@keyframes receipt-in { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: none; } }
+.result-enter { animation: result-in var(--duration-result) var(--ease-change) both; }
+@keyframes result-in { from { opacity: 0; } to { opacity: 1; } }
+.relayout { transition: left var(--duration-relayout) var(--ease-change), top var(--duration-relayout) var(--ease-change), width var(--duration-relayout) var(--ease-change), height var(--duration-relayout) var(--ease-change), transform var(--duration-open) var(--ease-enter); }
+.update-ring { box-shadow: 0 0 0 2px var(--color-paper), 0 0 0 4px var(--color-ink); }
+.pulse-dot { animation: pulse-dot 1.2s ease-in-out infinite; }
+@keyframes pulse-dot { 0%, 100% { opacity: 0.35; } 50% { opacity: 1; } }
+.spin-slow { animation: spin 1.4s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .sheet-enter, .sheet-exit, .backdrop-enter, .backdrop-exit, .receipt-enter, .result-enter { animation-duration: 100ms !important; animation-name: fade-in !important; }
+  .relayout { transition-duration: 1ms !important; }
+  .screen-push { transition-duration: 1ms !important; }
+}

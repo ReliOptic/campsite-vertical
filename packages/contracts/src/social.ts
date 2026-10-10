@@ -16,6 +16,7 @@ export const ForkResponse=z.object({channelId:Id,vistaId:Id,runId:Id.nullable()}
 // Inferred TypeScript types (same names as the schemas; value and type namespaces are separate).
 export type Publisher=z.infer<typeof Publisher>;
 export type PublishResponse=z.infer<typeof PublishResponse>;
+export type DiscoveryItem=z.infer<typeof DiscoveryItem>;
 export type DiscoveryResponse=z.infer<typeof DiscoveryResponse>;
 export type Subscribe=z.infer<typeof Subscribe>;
 export type Subscription=z.infer<typeof Subscription>;

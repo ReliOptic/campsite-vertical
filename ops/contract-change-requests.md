@@ -22,3 +22,4 @@ Sources were delivered directly at repository root rather than campsite-r5.8-cod
 - Runner API (external node path) preserved; `Job.trigger` optional. The in-platform WorkspaceRuntime uses the same run state machine functions.
 - Tests: `packages/contracts/tests/contracts.test.ts`, `tests/r60.test.ts`.
 - `ErrorCode` also gains `INTERNAL` (500 responses never leak internals).
+- `GET /auth/options` → `AuthOptions` (which login methods are available; dev accounts list only when enabled).

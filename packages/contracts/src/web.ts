@@ -18,6 +18,7 @@ export const RunResponse=z.object({status:RunStatus,phase:Phase,trigger:RunTrigg
 export const FeedResponse=z.object({items:z.array(FeedItem),nextCursor:z.string().nullable()}).strict();
 export const OAuthCallback=z.object({code:z.string().min(1),state:z.string().min(16)});
 // Dev-only login used for local verification with several independent accounts. Disabled unless AUTH_DEV_ACCOUNTS is set.
+export const AuthOptions=z.object({google:z.boolean(),dev:z.boolean(),devAccounts:z.array(z.object({email:z.email(),name:z.string()}).strict()).max(5)}).strict();
 export const DevLogin=z.object({email:z.email(),name:z.string().trim().min(1).max(80)}).strict();
 export const RuntimeResponse=z.object({runtimeId:Id,status:z.enum(['idle','running']),activeRuns:z.number().int().nonnegative(),nextWakeAt:DateTime.nullable()}).strict();
 export const AskRequest=z.object({vistaId:Id,question:z.string().trim().min(1).max(500)}).strict();
@@ -43,6 +44,7 @@ export type RunResponse=z.infer<typeof RunResponse>;
 export type FeedResponse=z.infer<typeof FeedResponse>;
 export type OAuthCallback=z.infer<typeof OAuthCallback>;
 export type DevLogin=z.infer<typeof DevLogin>;
+export type AuthOptions=z.infer<typeof AuthOptions>;
 export type RuntimeResponse=z.infer<typeof RuntimeResponse>;
 export type AskRequest=z.infer<typeof AskRequest>;
 export type AskResponse=z.infer<typeof AskResponse>;

@@ -1,10 +1,13 @@
 import { DatabaseSync } from 'node:sqlite';
+import { mkdirSync } from 'node:fs';
+import { dirname } from 'node:path';
 import type { Db, SqlParam, SqlResult, SqlStatement } from '../ports';
 
 /** Db port over Node's built-in SQLite. Same SQL dialect as Cloudflare D1. */
 export class NodeSqliteDb implements Db {
   readonly db: DatabaseSync;
   constructor(path = ':memory:') {
+    if (path !== ':memory:') mkdirSync(dirname(path), { recursive: true });
     this.db = new DatabaseSync(path);
     this.db.exec('PRAGMA journal_mode = WAL; PRAGMA foreign_keys = ON; PRAGMA busy_timeout = 5000;');
   }

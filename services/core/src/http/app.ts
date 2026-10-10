@@ -21,6 +21,7 @@ export interface AppDeps {
 }
 export interface Ctx { principal?: Principal; sessionToken?: string }
 const COOKIE = 'campsite_session';
+export const DEV_ACCOUNTS = [{ email: 'hana@campsite.test', name: 'Hana' }, { email: 'minsu@campsite.test', name: 'Minsu' }, { email: 'jiwoo@campsite.test', name: 'Jiwoo' }];
 
 export function createApp(d: AppDeps) {
   const r = new Router<Ctx>();
@@ -61,6 +62,7 @@ export function createApp(d: AppDeps) {
     const { sessionToken } = await login(ext);
     return new Response(null, { status: 302, headers: { Location: `${d.config.appOrigin}/`, 'Set-Cookie': setSession(sessionToken) } });
   });
+  r.get('/auth/options', async () => json(c.AuthOptions.parse({ google: !!d.google, dev: d.config.devAccounts, devAccounts: d.config.devAccounts ? DEV_ACCOUNTS : [] })));
   r.post('/auth/dev/login', async (req) => {
     if (!d.config.devAccounts) return json({ error: { code: 'NOT_FOUND' } }, 404);
     if (!sameOrigin(req)) throw new ApiError('INVALID_REQUEST', 403);

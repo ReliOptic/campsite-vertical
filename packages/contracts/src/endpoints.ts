@@ -7,6 +7,7 @@ import {VistaResponse} from './vista';
 export const endpoints=[
 {method:'GET',path:'/auth/google/start',status:302},
 {method:'GET',path:'/auth/google/callback',request:w.OAuthCallback,status:302},
+{method:'GET',path:'/auth/options',response:w.AuthOptions,status:200},
 {method:'POST',path:'/auth/dev/login',request:w.DevLogin,response:w.MeResponse,status:200,devOnly:true},
 {method:'POST',path:'/auth/logout',status:204},
 {method:'GET',path:'/api/me',response:w.MeResponse,status:200},
