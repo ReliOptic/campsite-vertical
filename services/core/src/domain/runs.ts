@@ -95,6 +95,13 @@ export class Runs {
     return null;
   }
 
+  /** Job view of an already-claimed run (used by the in-platform executor). */
+  async jobView(runId: string): Promise<c.RunnerJob> {
+    const row = await this.db.first<RunRow & { plan: c.PlanName }>('SELECT r.*, e.plan FROM runs r JOIN entitlements e ON e.workspace_id = r.workspace_id WHERE r.id = ?', [runId]);
+    if (!row) throw new RunnerError('NOT_FOUND', 404);
+    return this.buildJob(row, c.profiles[row.plan]);
+  }
+
   private async buildJob(row: RunRow & { plan: c.PlanName }, profile: c.ProfileData): Promise<c.RunnerJob> {
     const ch = await this.db.first<{ brief: string }>('SELECT brief FROM channels WHERE id = ?', [row.channel_id]);
     const recent = await this.db.all<{ manifest_json: string }>(
