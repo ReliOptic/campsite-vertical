@@ -1,0 +1,17 @@
+import {z} from 'zod';
+import {Id,DateTime,Plan,Brief,RunStatus,Phase,FailCode} from './common';
+import {FeedItem} from './vista';
+export const User=z.object({id:Id,name:z.string(),email:z.email(),avatarUrl:z.url().nullable()}).strict();
+export const UsageCount=z.object({used:z.number().int().nonnegative(),max:z.number().int().positive()}).strict();
+export const MeResponse=z.object({user:User,plan:Plan,usage:z.object({channels:UsageCount,runsToday:UsageCount}).strict()}).strict();
+export const Channel=z.object({id:Id,title:z.string(),brief:Brief,createdAt:DateTime,latestVistaId:Id.nullable().optional(),latestPosterUrl:z.url().nullable().optional()}).strict();
+export const ChannelsResponse=z.object({items:z.array(Channel)}).strict();
+export const CreateChannel=z.object({brief:Brief}).strict();
+export const CreateChannelResponse=z.object({channelId:Id,runId:Id}).strict();
+export const CreateRun=z.object({channelId:Id,prompt:Brief}).strict();
+export const CreateRunResponse=z.object({runId:Id}).strict();
+export const RunResponse=z.object({status:RunStatus,phase:Phase,vistaId:Id.optional(),error:FailCode.optional()}).strict();
+export const FeedResponse=z.object({items:z.array(FeedItem),nextCursor:z.string().nullable()}).strict();
+export const OAuthCallback=z.object({code:z.string().min(1),state:z.string().min(16)});
+export type ChannelData=z.infer<typeof Channel>;
+export type FeedItemData=z.infer<typeof FeedItem>;

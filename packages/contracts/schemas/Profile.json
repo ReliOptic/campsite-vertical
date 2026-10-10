@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "cpus": {
+      "type": "number",
+      "exclusiveMinimum": 0
+    },
+    "memMb": {
+      "type": "integer",
+      "exclusiveMinimum": 0,
+      "maximum": 9007199254740991
+    },
+    "timeoutSec": {
+      "type": "integer",
+      "exclusiveMinimum": 0,
+      "maximum": 9007199254740991
+    },
+    "maxRepair": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 9007199254740991
+    },
+    "browser": {
+      "type": "boolean"
+    },
+    "maxChannels": {
+      "type": "integer",
+      "exclusiveMinimum": 0,
+      "maximum": 9007199254740991
+    },
+    "minScheduleIntervalMin": {
+      "type": "integer",
+      "exclusiveMinimum": 0,
+      "maximum": 9007199254740991
+    },
+    "dailyRunCap": {
+      "type": "integer",
+      "exclusiveMinimum": 0,
+      "maximum": 9007199254740991
+    },
+    "priority": {
+      "type": "integer",
+      "exclusiveMinimum": 0,
+      "maximum": 9007199254740991
+    }
+  },
+  "required": [
+    "cpus",
+    "memMb",
+    "timeoutSec",
+    "maxRepair",
+    "browser",
+    "maxChannels",
+    "minScheduleIntervalMin",
+    "dailyRunCap",
+    "priority"
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "error": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string",
+          "enum": [
+            "UNAUTHENTICATED",
+            "CHANNEL_LIMIT",
+            "RUN_LIMIT",
+            "NOT_FOUND",
+            "INVALID_REQUEST",
+            "RUN_FAILED"
+          ]
+        }
+      },
+      "required": [
+        "code"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "error"
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,16 @@
+import { z } from 'zod';
+import profilesData from '../profiles.json';
+export const CONTRACT_VERSION = '5.8.0' as const;
+export const Id = z.string().min(1).max(128).regex(/^[a-zA-Z0-9_-]+$/);
+export const DateTime = z.iso.datetime();
+export const Plan = z.enum(['free','plus','pro']);
+export const RunStatus = z.enum(['QUEUED','CLAIMED','RUNNING','VALIDATING','READY','FAILED']);
+export const Phase = z.enum(['QUEUED','SEARCHING','DRAFTING','VERIFYING','DONE']);
+export const FailCode = z.enum(['MODEL_ERROR','TIMEOUT','VALIDATION_FAILED','TOOL_ERROR','OOM','CANCELED']);
+export const ErrorCode = z.enum(['UNAUTHENTICATED','CHANNEL_LIMIT','RUN_LIMIT','NOT_FOUND','INVALID_REQUEST','RUN_FAILED']);
+export const ErrorResponse = z.object({error:z.object({code:ErrorCode}).strict()}).strict();
+export const Limits = z.object({cpus:z.number().positive(),memMb:z.number().int().positive(),timeoutSec:z.number().int().positive(),maxRepair:z.number().int().nonnegative(),browser:z.boolean()}).strict();
+export const Profile = Limits.extend({maxChannels:z.number().int().positive(),minScheduleIntervalMin:z.number().int().positive(),dailyRunCap:z.number().int().positive(),priority:z.number().int().positive()});
+export const profiles = z.record(Plan,Profile).parse(profilesData);
+export const Brief = z.string().trim().min(1).max(4000);
+export const MutationHeaders = z.object({'Idempotency-Key':z.string().min(8).max(128)});

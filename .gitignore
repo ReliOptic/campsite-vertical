@@ -1,0 +1,11 @@
+node_modules/
+dist/
+.env
+.dev.vars
+.wrangler/
+.omx/
+__pycache__/
+.venv/
+test-results/
+playwright-report/
+services/runner/out/

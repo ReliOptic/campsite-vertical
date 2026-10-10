@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "Idempotency-Key": {
+      "type": "string",
+      "minLength": 8,
+      "maxLength": 128
+    }
+  },
+  "required": [
+    "Idempotency-Key"
+  ],
+  "additionalProperties": false
+}

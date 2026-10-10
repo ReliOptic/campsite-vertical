@@ -1,0 +1,10 @@
+import {test} from 'node:test';
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+import * as c from '../src/index';
+const fixture=(name:string)=>JSON.parse(readFileSync(new URL(`../fixtures/${name}.json`,import.meta.url),'utf8'));
+test('all canonical fixtures parse',()=>{for(const [name,schema] of Object.entries({me:c.MeResponse,channels:c.ChannelsResponse,emptyChannels:c.ChannelsResponse,pendingRun:c.RunResponse,failedRun:c.RunResponse,readyRun:c.RunResponse,feed:c.FeedResponse,emptyFeed:c.FeedResponse,vista:c.VistaResponse,job:c.Job,manifest:c.Manifest,channelLimit:c.ErrorResponse,runLimit:c.ErrorResponse}))schema.parse(fixture(name));});
+test('profiles retain exact limits',()=>{assert.equal(c.profiles.free.maxChannels,1);assert.equal(c.profiles.pro.memMb,6144);assert.equal(c.profiles.free.browser,false);});
+test('manifest rejects traversal, duplicate, missing and oversized files',()=>{for(const path of ['../x.js','a/../x.js','a/%2e.js','/x.html','x.exe'])assert.equal(c.ArtifactPath.safeParse(path).success,false);const m=fixture('manifest');assert.equal(c.Manifest.safeParse({...m,files:[m.files[0]]}).success,false);assert.equal(c.Manifest.safeParse({...m,files:[...m.files,m.files[0]]}).success,false);assert.equal(c.Manifest.safeParse({...m,files:m.files.map((f:object)=>({...f,bytes:c.MAX_BYTES}))}).success,false);});
+test('fixed enums, attempt and opaque-origin protocol',()=>{assert.equal(c.RunStatus.safeParse('CANCELED').success,false);assert.equal(c.RunnerHeaders.safeParse({Authorization:'Bearer example','X-Run-Attempt':'2'}).success,true);assert.equal(c.RunnerHeaders.safeParse({Authorization:'Bearer example'}).success,false);assert.equal(c.ReadyMessage.safeParse({type:'campsite:ready',secret:'bad'}).success,false);});
+test('endpoint ownership, schema coverage and fencing',()=>{assert.equal(new Set(c.endpoints.map(e=>e.method+e.path)).size,c.endpoints.length);for(const e of c.endpoints.filter(e=>e.path.includes('/runner/runs/')))assert.ok('fencing' in e && e.fencing);assert.equal(c.CONTRACT_VERSION,'5.8.0');});

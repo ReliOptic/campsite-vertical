@@ -1,0 +1,9 @@
+import {writeFileSync} from 'node:fs';
+const at='2026-10-10T00:00:00.000Z';
+const me={user:{id:'u_fixture',name:'Campsite',email:'reader@example.test',avatarUrl:null},plan:'free',usage:{channels:{used:0,max:1},runsToday:{used:0,max:3}}};
+const channel={id:'ch_fixture',title:'HBM 시장',brief:'HBM 시장 구도를 비교해 주세요',createdAt:at,latestVistaId:null,latestPosterUrl:null};
+const job={runId:'r_fixture',channelId:'ch_fixture',attempt:1,prompt:channel.brief,channelBrief:channel.brief,recent:[],profile:'free',limits:{cpus:1,memMb:2048,timeoutSec:300,maxRepair:1,browser:false},model:{provider:'openrouter',modelId:'stub',apiKey:''},artifactVersion:'1'};
+const manifest={schema:1,title:'HBM 시장',summary:'시장 비교',entry:'index.html',poster:'poster.png',aspect:'9:16',durationHintMs:30000,files:[{path:'index.html',sha256:'0'.repeat(64),bytes:100},{path:'poster.png',sha256:'1'.repeat(64),bytes:100}],generator:{runId:job.runId,modelId:'stub'}};
+const feed={items:[{vistaId:'v_fixture',channelId:channel.id,channelTitle:channel.title,title:manifest.title,summary:manifest.summary,posterUrl:'https://vista.example.test/v/fixture/poster.png',aspect:'9:16',createdAt:at}],nextCursor:null};
+const fixtures={me,channels:{items:[channel]},emptyChannels:{items:[]},pendingRun:{status:'QUEUED',phase:'QUEUED'},failedRun:{status:'FAILED',phase:'VERIFYING',error:'VALIDATION_FAILED'},readyRun:{status:'READY',phase:'DONE',vistaId:'v_fixture'},feed,emptyFeed:{items:[],nextCursor:null},vista:{vistaId:'v_fixture',title:manifest.title,summary:manifest.summary,aspect:'9:16',playUrl:'https://vista.example.test/v/fixture/index.html',posterUrl:feed.items[0].posterUrl,expiresAt:'2026-10-10T00:10:00.000Z'},job,manifest,channelLimit:{error:{code:'CHANNEL_LIMIT'}},runLimit:{error:{code:'RUN_LIMIT'}}};
+for(const [name,value] of Object.entries(fixtures))writeFileSync(`fixtures/${name}.json`,JSON.stringify(value,null,2)+'\n');

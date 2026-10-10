@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "status": {
+      "type": "string",
+      "enum": [
+        "QUEUED",
+        "CLAIMED",
+        "RUNNING",
+        "VALIDATING",
+        "READY",
+        "FAILED"
+      ]
+    },
+    "phase": {
+      "type": "string",
+      "enum": [
+        "QUEUED",
+        "SEARCHING",
+        "DRAFTING",
+        "VERIFYING",
+        "DONE"
+      ]
+    },
+    "vistaId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[a-zA-Z0-9_-]+$"
+    },
+    "error": {
+      "type": "string",
+      "enum": [
+        "MODEL_ERROR",
+        "TIMEOUT",
+        "VALIDATION_FAILED",
+        "TOOL_ERROR",
+        "OOM",
+        "CANCELED"
+      ]
+    }
+  },
+  "required": [
+    "status",
+    "phase"
+  ],
+  "additionalProperties": false
+}

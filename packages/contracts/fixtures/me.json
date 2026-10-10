@@ -1,0 +1,19 @@
+{
+  "user": {
+    "id": "u_fixture",
+    "name": "Campsite",
+    "email": "reader@example.test",
+    "avatarUrl": null
+  },
+  "plan": "free",
+  "usage": {
+    "channels": {
+      "used": 0,
+      "max": 1
+    },
+    "runsToday": {
+      "used": 0,
+      "max": 3
+    }
+  }
+}

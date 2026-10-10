@@ -1,0 +1,22 @@
+{
+  "runId": "r_fixture",
+  "channelId": "ch_fixture",
+  "attempt": 1,
+  "prompt": "HBM 시장 구도를 비교해 주세요",
+  "channelBrief": "HBM 시장 구도를 비교해 주세요",
+  "recent": [],
+  "profile": "free",
+  "limits": {
+    "cpus": 1,
+    "memMb": 2048,
+    "timeoutSec": 300,
+    "maxRepair": 1,
+    "browser": false
+  },
+  "model": {
+    "provider": "openrouter",
+    "modelId": "stub",
+    "apiKey": ""
+  },
+  "artifactVersion": "1"
+}

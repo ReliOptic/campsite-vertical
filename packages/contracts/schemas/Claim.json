@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "nodeId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[a-zA-Z0-9_-]+$"
+    },
+    "freeMemMb": {
+      "type": "number",
+      "minimum": 0
+    },
+    "freeCpus": {
+      "type": "number",
+      "minimum": 0
+    }
+  },
+  "required": [
+    "nodeId",
+    "freeMemMb",
+    "freeCpus"
+  ],
+  "additionalProperties": false
+}

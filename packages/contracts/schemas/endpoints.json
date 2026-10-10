@@ -1,0 +1,1022 @@
+{
+  "version": "5.8.0",
+  "endpoints": [
+    {
+      "method": "GET",
+      "path": "/auth/google/start",
+      "status": 302
+    },
+    {
+      "method": "GET",
+      "path": "/auth/google/callback",
+      "request": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "minLength": 1
+          },
+          "state": {
+            "type": "string",
+            "minLength": 16
+          }
+        },
+        "required": [
+          "code",
+          "state"
+        ],
+        "additionalProperties": false
+      },
+      "status": 302
+    },
+    {
+      "method": "POST",
+      "path": "/auth/logout",
+      "status": 204
+    },
+    {
+      "method": "GET",
+      "path": "/api/me",
+      "response": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "user": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 128,
+                "pattern": "^[a-zA-Z0-9_-]+$"
+              },
+              "name": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string",
+                "format": "email",
+                "pattern": "^(?:[A-Za-z0-9_'+\\-]+\\.)*[A-Za-z0-9_'+\\-]*[A-Za-z0-9_+-]@(?:[A-Za-z0-9][A-Za-z0-9\\-]*\\.)+[A-Za-z]{2,}$"
+              },
+              "avatarUrl": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "format": "uri"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "id",
+              "name",
+              "email",
+              "avatarUrl"
+            ],
+            "additionalProperties": false
+          },
+          "plan": {
+            "type": "string",
+            "enum": [
+              "free",
+              "plus",
+              "pro"
+            ]
+          },
+          "usage": {
+            "type": "object",
+            "properties": {
+              "channels": {
+                "type": "object",
+                "properties": {
+                  "used": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 9007199254740991
+                  },
+                  "max": {
+                    "type": "integer",
+                    "exclusiveMinimum": 0,
+                    "maximum": 9007199254740991
+                  }
+                },
+                "required": [
+                  "used",
+                  "max"
+                ],
+                "additionalProperties": false
+              },
+              "runsToday": {
+                "type": "object",
+                "properties": {
+                  "used": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 9007199254740991
+                  },
+                  "max": {
+                    "type": "integer",
+                    "exclusiveMinimum": 0,
+                    "maximum": 9007199254740991
+                  }
+                },
+                "required": [
+                  "used",
+                  "max"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "channels",
+              "runsToday"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "user",
+          "plan",
+          "usage"
+        ],
+        "additionalProperties": false
+      },
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/channels",
+      "response": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 128,
+                  "pattern": "^[a-zA-Z0-9_-]+$"
+                },
+                "title": {
+                  "type": "string"
+                },
+                "brief": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 4000
+                },
+                "createdAt": {
+                  "type": "string",
+                  "format": "date-time",
+                  "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$"
+                },
+                "latestVistaId": {
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 128,
+                      "pattern": "^[a-zA-Z0-9_-]+$"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "latestPosterUrl": {
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "id",
+                "title",
+                "brief",
+                "createdAt"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "items"
+        ],
+        "additionalProperties": false
+      },
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/channels",
+      "request": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "brief": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4000
+          }
+        },
+        "required": [
+          "brief"
+        ],
+        "additionalProperties": false
+      },
+      "response": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "channelId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128,
+            "pattern": "^[a-zA-Z0-9_-]+$"
+          },
+          "runId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128,
+            "pattern": "^[a-zA-Z0-9_-]+$"
+          }
+        },
+        "required": [
+          "channelId",
+          "runId"
+        ],
+        "additionalProperties": false
+      },
+      "status": 201,
+      "idempotency": true
+    },
+    {
+      "method": "POST",
+      "path": "/api/runs",
+      "request": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "channelId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128,
+            "pattern": "^[a-zA-Z0-9_-]+$"
+          },
+          "prompt": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4000
+          }
+        },
+        "required": [
+          "channelId",
+          "prompt"
+        ],
+        "additionalProperties": false
+      },
+      "response": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "runId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128,
+            "pattern": "^[a-zA-Z0-9_-]+$"
+          }
+        },
+        "required": [
+          "runId"
+        ],
+        "additionalProperties": false
+      },
+      "status": 202
+    },
+    {
+      "method": "GET",
+      "path": "/api/runs/:id",
+      "response": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "QUEUED",
+              "CLAIMED",
+              "RUNNING",
+              "VALIDATING",
+              "READY",
+              "FAILED"
+            ]
+          },
+          "phase": {
+            "type": "string",
+            "enum": [
+              "QUEUED",
+              "SEARCHING",
+              "DRAFTING",
+              "VERIFYING",
+              "DONE"
+            ]
+          },
+          "vistaId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128,
+            "pattern": "^[a-zA-Z0-9_-]+$"
+          },
+          "error": {
+            "type": "string",
+            "enum": [
+              "MODEL_ERROR",
+              "TIMEOUT",
+              "VALIDATION_FAILED",
+              "TOOL_ERROR",
+              "OOM",
+              "CANCELED"
+            ]
+          }
+        },
+        "required": [
+          "status",
+          "phase"
+        ],
+        "additionalProperties": false
+      },
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/runs/:id/cancel",
+      "response": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "QUEUED",
+              "CLAIMED",
+              "RUNNING",
+              "VALIDATING",
+              "READY",
+              "FAILED"
+            ]
+          },
+          "phase": {
+            "type": "string",
+            "enum": [
+              "QUEUED",
+              "SEARCHING",
+              "DRAFTING",
+              "VERIFYING",
+              "DONE"
+            ]
+          },
+          "vistaId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128,
+            "pattern": "^[a-zA-Z0-9_-]+$"
+          },
+          "error": {
+            "type": "string",
+            "enum": [
+              "MODEL_ERROR",
+              "TIMEOUT",
+              "VALIDATION_FAILED",
+              "TOOL_ERROR",
+              "OOM",
+              "CANCELED"
+            ]
+          }
+        },
+        "required": [
+          "status",
+          "phase"
+        ],
+        "additionalProperties": false
+      },
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/feed",
+      "response": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "vistaId": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 128,
+                  "pattern": "^[a-zA-Z0-9_-]+$"
+                },
+                "channelId": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 128,
+                  "pattern": "^[a-zA-Z0-9_-]+$"
+                },
+                "channelTitle": {
+                  "type": "string"
+                },
+                "title": {
+                  "type": "string"
+                },
+                "summary": {
+                  "type": "string"
+                },
+                "posterUrl": {
+                  "type": "string",
+                  "format": "uri"
+                },
+                "aspect": {
+                  "type": "string",
+                  "enum": [
+                    "9:16",
+                    "free"
+                  ]
+                },
+                "createdAt": {
+                  "type": "string",
+                  "format": "date-time",
+                  "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$"
+                }
+              },
+              "required": [
+                "vistaId",
+                "channelId",
+                "channelTitle",
+                "title",
+                "summary",
+                "posterUrl",
+                "aspect",
+                "createdAt"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "nextCursor": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "required": [
+          "items",
+          "nextCursor"
+        ],
+        "additionalProperties": false
+      },
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/vistas/:id",
+      "response": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "vistaId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128,
+            "pattern": "^[a-zA-Z0-9_-]+$"
+          },
+          "title": {
+            "type": "string"
+          },
+          "summary": {
+            "type": "string"
+          },
+          "aspect": {
+            "type": "string",
+            "enum": [
+              "9:16",
+              "free"
+            ]
+          },
+          "playUrl": {
+            "type": "string",
+            "format": "uri"
+          },
+          "posterUrl": {
+            "type": "string",
+            "format": "uri"
+          },
+          "expiresAt": {
+            "type": "string",
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$"
+          }
+        },
+        "required": [
+          "vistaId",
+          "title",
+          "summary",
+          "aspect",
+          "playUrl",
+          "posterUrl",
+          "expiresAt"
+        ],
+        "additionalProperties": false
+      },
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/runner/register",
+      "request": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "nodeId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128,
+            "pattern": "^[a-zA-Z0-9_-]+$"
+          },
+          "hostCpus": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "hostMemMb": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "version": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "nodeId",
+          "hostCpus",
+          "hostMemMb",
+          "version"
+        ],
+        "additionalProperties": false
+      },
+      "response": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "nodeId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128,
+            "pattern": "^[a-zA-Z0-9_-]+$"
+          }
+        },
+        "required": [
+          "nodeId"
+        ],
+        "additionalProperties": false
+      },
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/runner/claim",
+      "request": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "nodeId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128,
+            "pattern": "^[a-zA-Z0-9_-]+$"
+          },
+          "freeMemMb": {
+            "type": "number",
+            "minimum": 0
+          },
+          "freeCpus": {
+            "type": "number",
+            "minimum": 0
+          }
+        },
+        "required": [
+          "nodeId",
+          "freeMemMb",
+          "freeCpus"
+        ],
+        "additionalProperties": false
+      },
+      "response": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "runId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128,
+            "pattern": "^[a-zA-Z0-9_-]+$"
+          },
+          "channelId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128,
+            "pattern": "^[a-zA-Z0-9_-]+$"
+          },
+          "attempt": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 2
+          },
+          "prompt": {
+            "type": "string"
+          },
+          "channelBrief": {
+            "type": "string"
+          },
+          "recent": {
+            "maxItems": 3,
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "type": "string"
+                },
+                "summary": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "title",
+                "summary"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "profile": {
+            "type": "string",
+            "enum": [
+              "free",
+              "plus",
+              "pro"
+            ]
+          },
+          "limits": {
+            "type": "object",
+            "properties": {
+              "cpus": {
+                "type": "number",
+                "exclusiveMinimum": 0
+              },
+              "memMb": {
+                "type": "integer",
+                "exclusiveMinimum": 0,
+                "maximum": 9007199254740991
+              },
+              "timeoutSec": {
+                "type": "integer",
+                "exclusiveMinimum": 0,
+                "maximum": 9007199254740991
+              },
+              "maxRepair": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9007199254740991
+              },
+              "browser": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "cpus",
+              "memMb",
+              "timeoutSec",
+              "maxRepair",
+              "browser"
+            ],
+            "additionalProperties": false
+          },
+          "model": {
+            "type": "object",
+            "properties": {
+              "provider": {
+                "type": "string",
+                "const": "openrouter"
+              },
+              "modelId": {
+                "type": "string",
+                "minLength": 1
+              },
+              "apiKey": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "provider",
+              "modelId",
+              "apiKey"
+            ],
+            "additionalProperties": false
+          },
+          "artifactVersion": {
+            "type": "string",
+            "const": "1"
+          }
+        },
+        "required": [
+          "runId",
+          "channelId",
+          "attempt",
+          "prompt",
+          "channelBrief",
+          "recent",
+          "profile",
+          "limits",
+          "model",
+          "artifactVersion"
+        ],
+        "additionalProperties": false
+      },
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/runner/runs/:id/heartbeat",
+      "request": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "phase": {
+            "type": "string",
+            "enum": [
+              "SEARCHING",
+              "DRAFTING",
+              "VERIFYING"
+            ]
+          }
+        },
+        "required": [
+          "phase"
+        ],
+        "additionalProperties": false
+      },
+      "response": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "leaseUntil": {
+            "type": "string",
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$"
+          },
+          "cancel": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "leaseUntil",
+          "cancel"
+        ],
+        "additionalProperties": false
+      },
+      "status": 200,
+      "fencing": true
+    },
+    {
+      "method": "PUT",
+      "path": "/runner/runs/:id/files/*",
+      "status": 200,
+      "fencing": true
+    },
+    {
+      "method": "POST",
+      "path": "/runner/runs/:id/submit",
+      "request": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "manifest": {
+            "type": "object",
+            "properties": {
+              "schema": {
+                "type": "number",
+                "const": 1
+              },
+              "title": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200
+              },
+              "summary": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 1000
+              },
+              "entry": {
+                "type": "string",
+                "const": "index.html"
+              },
+              "poster": {
+                "type": "string",
+                "const": "poster.png"
+              },
+              "aspect": {
+                "type": "string",
+                "enum": [
+                  "9:16",
+                  "free"
+                ]
+              },
+              "durationHintMs": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 120000
+              },
+              "files": {
+                "minItems": 2,
+                "maxItems": 12,
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "path": {
+                      "type": "string",
+                      "maxLength": 240,
+                      "pattern": "^[a-z0-9._-]+(\\/[a-z0-9._-]+)*$"
+                    },
+                    "sha256": {
+                      "type": "string",
+                      "pattern": "^[a-f0-9]{64}$"
+                    },
+                    "bytes": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 3145728
+                    }
+                  },
+                  "required": [
+                    "path",
+                    "sha256",
+                    "bytes"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "generator": {
+                "type": "object",
+                "properties": {
+                  "runId": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 128,
+                    "pattern": "^[a-zA-Z0-9_-]+$"
+                  },
+                  "modelId": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 200
+                  }
+                },
+                "required": [
+                  "runId",
+                  "modelId"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "schema",
+              "title",
+              "summary",
+              "entry",
+              "poster",
+              "aspect",
+              "durationHintMs",
+              "files",
+              "generator"
+            ],
+            "additionalProperties": false
+          },
+          "usage": {
+            "type": "object",
+            "properties": {
+              "tokensIn": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9007199254740991
+              },
+              "tokensOut": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9007199254740991
+              },
+              "durationMs": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9007199254740991
+              }
+            },
+            "required": [
+              "tokensIn",
+              "tokensOut",
+              "durationMs"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "manifest",
+          "usage"
+        ],
+        "additionalProperties": false
+      },
+      "response": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "revisionId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128,
+            "pattern": "^[a-zA-Z0-9_-]+$"
+          }
+        },
+        "required": [
+          "revisionId"
+        ],
+        "additionalProperties": false
+      },
+      "status": 201,
+      "fencing": true
+    },
+    {
+      "method": "POST",
+      "path": "/runner/runs/:id/fail",
+      "request": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "enum": [
+              "MODEL_ERROR",
+              "TIMEOUT",
+              "VALIDATION_FAILED",
+              "TOOL_ERROR",
+              "OOM",
+              "CANCELED"
+            ]
+          },
+          "retryable": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "code",
+          "retryable"
+        ],
+        "additionalProperties": false
+      },
+      "response": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "QUEUED",
+              "FAILED"
+            ]
+          }
+        },
+        "required": [
+          "status"
+        ],
+        "additionalProperties": false
+      },
+      "status": 200,
+      "fencing": true
+    }
+  ]
+}

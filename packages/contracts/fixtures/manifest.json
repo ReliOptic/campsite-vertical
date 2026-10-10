@@ -1,0 +1,25 @@
+{
+  "schema": 1,
+  "title": "HBM 시장",
+  "summary": "시장 비교",
+  "entry": "index.html",
+  "poster": "poster.png",
+  "aspect": "9:16",
+  "durationHintMs": 30000,
+  "files": [
+    {
+      "path": "index.html",
+      "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "bytes": 100
+    },
+    {
+      "path": "poster.png",
+      "sha256": "1111111111111111111111111111111111111111111111111111111111111111",
+      "bytes": 100
+    }
+  ],
+  "generator": {
+    "runId": "r_fixture",
+    "modelId": "stub"
+  }
+}

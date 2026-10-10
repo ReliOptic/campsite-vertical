@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "type": {
+      "type": "string",
+      "const": "campsite:ready"
+    },
+    "durationMs": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 120000
+    }
+  },
+  "required": [
+    "type"
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "code": {
+      "type": "string",
+      "enum": [
+        "MODEL_ERROR",
+        "TIMEOUT",
+        "VALIDATION_FAILED",
+        "TOOL_ERROR",
+        "OOM",
+        "CANCELED"
+      ]
+    },
+    "retryable": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "code",
+    "retryable"
+  ],
+  "additionalProperties": false
+}

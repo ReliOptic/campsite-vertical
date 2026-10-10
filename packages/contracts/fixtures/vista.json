@@ -1,0 +1,9 @@
+{
+  "vistaId": "v_fixture",
+  "title": "HBM 시장",
+  "summary": "시장 비교",
+  "aspect": "9:16",
+  "playUrl": "https://vista.example.test/v/fixture/index.html",
+  "posterUrl": "https://vista.example.test/v/fixture/poster.png",
+  "expiresAt": "2026-10-10T00:10:00.000Z"
+}
