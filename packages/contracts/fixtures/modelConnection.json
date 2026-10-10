@@ -1,0 +1,21 @@
+{
+  "connection": {
+    "provider": "openrouter",
+    "modelId": "openrouter/auto",
+    "keyHint": "sk-or-v1…ab12",
+    "verifiedAt": "2026-10-10T00:00:00.000Z",
+    "connectedAt": "2026-10-10T00:00:00.000Z"
+  },
+  "options": [
+    {
+      "id": "openrouter/auto",
+      "label": "Auto",
+      "tier": "balanced"
+    },
+    {
+      "id": "google/gemini-2.5-flash-lite",
+      "label": "Gemini Flash Lite",
+      "tier": "cheap"
+    }
+  ]
+}

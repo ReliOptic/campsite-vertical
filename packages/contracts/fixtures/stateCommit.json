@@ -1,0 +1,11 @@
+{
+  "baseStateRevision": 3,
+  "idempotencyKey": "commit-0000000001",
+  "patch": [
+    {
+      "op": "replace",
+      "path": "/scene",
+      "value": "outlook"
+    }
+  ]
+}

@@ -5,6 +5,7 @@
     "email": "reader@example.test",
     "avatarUrl": null
   },
+  "workspaceId": "ws_fixture",
   "plan": "free",
   "usage": {
     "channels": {
@@ -15,5 +16,9 @@
       "used": 0,
       "max": 3
     }
-  }
+  },
+  "model": {
+    "connected": false
+  },
+  "nextUpdateAt": null
 }

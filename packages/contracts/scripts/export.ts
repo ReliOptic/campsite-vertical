@@ -1,4 +1,4 @@
-import {z} from 'zod';
+import {z} from 'zod/v4';
 import {mkdirSync,writeFileSync} from 'node:fs';
 import * as c from '../src/index';
 mkdirSync('schemas',{recursive:true});

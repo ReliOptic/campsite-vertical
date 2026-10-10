@@ -1,0 +1,6 @@
+{
+  "provider": "openrouter",
+  "apiKey": "sk-or-v1-ffffffffffffffffffffffffffffffffffffffffffffffff",
+  "modelId": "google/gemini-2.5-flash-lite",
+  "verify": true
+}

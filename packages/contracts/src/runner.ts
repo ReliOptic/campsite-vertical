@@ -1,11 +1,11 @@
-import {z} from 'zod';
-import {Id,Limits,Plan,Phase,FailCode,DateTime} from './common';
+import {z} from 'zod/v4';
+import {Id,Limits,Plan,Phase,FailCode,DateTime,RunTrigger} from './common';
 import {Manifest} from './vista';
 export const RunnerHeaders=z.object({Authorization:z.string().regex(/^Bearer .+$/),'X-Run-Attempt':z.coerce.number().int().min(1).max(2)});
 export const Register=z.object({nodeId:Id,hostCpus:z.number().positive(),hostMemMb:z.number().positive(),version:z.string().min(1)}).strict();
 export const RegisterResponse=z.object({nodeId:Id}).strict();
 export const Claim=z.object({nodeId:Id,freeMemMb:z.number().nonnegative(),freeCpus:z.number().nonnegative()}).strict();
-export const Job=z.object({runId:Id,channelId:Id,attempt:z.number().int().min(1).max(2),prompt:z.string(),channelBrief:z.string(),recent:z.array(z.object({title:z.string(),summary:z.string()}).strict()).max(3),profile:Plan,limits:Limits,model:z.object({provider:z.literal('openrouter'),modelId:z.string().min(1),apiKey:z.string()}).strict(),artifactVersion:z.literal('1')}).strict();
+export const Job=z.object({runId:Id,channelId:Id,attempt:z.number().int().min(1).max(2),prompt:z.string(),channelBrief:z.string(),recent:z.array(z.object({title:z.string(),summary:z.string()}).strict()).max(3),profile:Plan,limits:Limits,model:z.object({provider:z.literal('openrouter'),modelId:z.string().min(1),apiKey:z.string()}).strict(),artifactVersion:z.literal('1'),trigger:RunTrigger.optional()}).strict();
 export const Heartbeat=z.object({phase:Phase.exclude(['QUEUED','DONE'])}).strict();
 export const HeartbeatResponse=z.object({leaseUntil:DateTime,cancel:z.boolean()}).strict();
 export const Usage=z.object({tokensIn:z.number().int().nonnegative(),tokensOut:z.number().int().nonnegative(),durationMs:z.number().int().nonnegative()}).strict();

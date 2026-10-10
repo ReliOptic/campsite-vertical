@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "connected": {
+      "type": "boolean"
+    },
+    "provider": {
+      "type": "string",
+      "const": "openrouter"
+    },
+    "modelId": {
+      "type": "string"
+    },
+    "keyHint": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "connected"
+  ],
+  "additionalProperties": false
+}

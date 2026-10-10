@@ -113,6 +113,15 @@
     "artifactVersion": {
       "type": "string",
       "const": "1"
+    },
+    "trigger": {
+      "type": "string",
+      "enum": [
+        "initial",
+        "manual",
+        "scheduled",
+        "fork"
+      ]
     }
   },
   "required": [

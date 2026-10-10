@@ -18,5 +18,6 @@
     "modelId": "stub",
     "apiKey": ""
   },
-  "artifactVersion": "1"
+  "artifactVersion": "1",
+  "trigger": "initial"
 }

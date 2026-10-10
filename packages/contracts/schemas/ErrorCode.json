@@ -7,6 +7,8 @@
     "RUN_LIMIT",
     "NOT_FOUND",
     "INVALID_REQUEST",
-    "RUN_FAILED"
+    "RUN_FAILED",
+    "MODEL_NOT_CONNECTED",
+    "INVALID_KEY"
   ]
 }
