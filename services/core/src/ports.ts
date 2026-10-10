@@ -36,4 +36,6 @@ export interface CoreConfig {
   openRouterBaseUrl: string; // https://openrouter.ai/api/v1 (overridable for local fakes)
   leaseSeconds: number;
   capabilityTtlSeconds: number;
+  /** 'platform': the account's WorkspaceRuntime executes runs (default). 'external': only registered runner nodes claim runs (R5.8 topology). */
+  executionMode?: 'platform' | 'external';
 }

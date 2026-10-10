@@ -9,6 +9,7 @@
     "INVALID_REQUEST",
     "RUN_FAILED",
     "MODEL_NOT_CONNECTED",
-    "INVALID_KEY"
+    "INVALID_KEY",
+    "INTERNAL"
   ]
 }
