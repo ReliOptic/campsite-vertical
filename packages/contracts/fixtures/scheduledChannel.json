@@ -1,0 +1,15 @@
+{
+  "id": "ch_sched",
+  "title": "HBM 시장",
+  "brief": "HBM 시장 구도를 비교해 주세요",
+  "createdAt": "2026-10-10T00:00:00.000Z",
+  "latestVistaId": null,
+  "latestPosterUrl": null,
+  "schedule": {
+    "intervalMin": 1440,
+    "enabled": true,
+    "nextRunAt": "2026-10-11T00:00:00.000Z",
+    "lastRunAt": "2026-10-10T00:00:00.000Z"
+  },
+  "origin": null
+}

@@ -1,16 +1,33 @@
-import { z } from 'zod';
+import { z } from 'zod/v4';
 import profilesData from '../profiles.json';
-export const CONTRACT_VERSION = '5.8.0' as const;
+export const CONTRACT_VERSION = '6.0.0' as const;
 export const Id = z.string().min(1).max(128).regex(/^[a-zA-Z0-9_-]+$/);
 export const DateTime = z.iso.datetime();
 export const Plan = z.enum(['free','plus','pro']);
-export const RunStatus = z.enum(['QUEUED','CLAIMED','RUNNING','VALIDATING','READY','FAILED']);
+// R6.0: SKIPPED is a terminal status for scheduled runs that found no meaningful change (no revision, no feed entry).
+export const RunStatus = z.enum(['QUEUED','CLAIMED','RUNNING','VALIDATING','READY','FAILED','SKIPPED']);
+export const RunTrigger = z.enum(['initial','manual','scheduled','fork']);
 export const Phase = z.enum(['QUEUED','SEARCHING','DRAFTING','VERIFYING','DONE']);
 export const FailCode = z.enum(['MODEL_ERROR','TIMEOUT','VALIDATION_FAILED','TOOL_ERROR','OOM','CANCELED']);
-export const ErrorCode = z.enum(['UNAUTHENTICATED','CHANNEL_LIMIT','RUN_LIMIT','NOT_FOUND','INVALID_REQUEST','RUN_FAILED']);
+export const ErrorCode = z.enum(['UNAUTHENTICATED','CHANNEL_LIMIT','RUN_LIMIT','NOT_FOUND','INVALID_REQUEST','RUN_FAILED','MODEL_NOT_CONNECTED','INVALID_KEY','INTERNAL']);
 export const ErrorResponse = z.object({error:z.object({code:ErrorCode}).strict()}).strict();
 export const Limits = z.object({cpus:z.number().positive(),memMb:z.number().int().positive(),timeoutSec:z.number().int().positive(),maxRepair:z.number().int().nonnegative(),browser:z.boolean()}).strict();
-export const Profile = Limits.extend({maxChannels:z.number().int().positive(),minScheduleIntervalMin:z.number().int().positive(),dailyRunCap:z.number().int().positive(),priority:z.number().int().positive()});
+export const Profile = Limits.extend({maxChannels:z.number().int().positive(),minScheduleIntervalMin:z.number().int().positive(),dailyRunCap:z.number().int().positive(),priority:z.number().int().positive(),maxConcurrentRuns:z.number().int().positive()}).strict();
 export const profiles = z.record(Plan,Profile).parse(profilesData);
 export const Brief = z.string().trim().min(1).max(4000);
 export const MutationHeaders = z.object({'Idempotency-Key':z.string().min(8).max(128)});
+export type PlanName = z.infer<typeof Plan>;
+export type ProfileData = z.infer<typeof Profile>;
+// Inferred TypeScript types (same names as the schemas; value and type namespaces are separate).
+export type Id=z.infer<typeof Id>;
+export type DateTime=z.infer<typeof DateTime>;
+export type Plan=z.infer<typeof Plan>;
+export type RunStatus=z.infer<typeof RunStatus>;
+export type RunTrigger=z.infer<typeof RunTrigger>;
+export type Phase=z.infer<typeof Phase>;
+export type FailCode=z.infer<typeof FailCode>;
+export type ErrorCode=z.infer<typeof ErrorCode>;
+export type ErrorResponse=z.infer<typeof ErrorResponse>;
+export type Limits=z.infer<typeof Limits>;
+export type Brief=z.infer<typeof Brief>;
+export type MutationHeaders=z.infer<typeof MutationHeaders>;

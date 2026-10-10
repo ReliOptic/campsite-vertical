@@ -1,0 +1,20 @@
+{
+  // Campsite Core on Cloudflare: Worker (API + Vista gateway + cron) + per-account Durable Object + D1 + R2 + Browser Rendering.
+  // Deploy: `wrangler d1 migrations apply campsite` then `wrangler deploy`. Secrets via `wrangler secret put`.
+  "name": "campsite-core",
+  "main": "src/cloudflare/worker.ts",
+  "compatibility_date": "2026-09-30",
+  "compatibility_flags": ["nodejs_compat"],
+  "routes": [
+    { "pattern": "app.campsite.example/*", "zone_name": "campsite.example" },
+    { "pattern": "campsite-vista.example/*", "zone_name": "campsite-vista.example" }
+  ],
+  "vars": { "APP_ORIGIN": "https://app.campsite.example", "VISTA_ORIGIN": "https://campsite-vista.example", "AUTH_DEV_ACCOUNTS": "0", "MODEL_PROVIDER": "openrouter" },
+  "d1_databases": [{ "binding": "DB", "database_name": "campsite", "database_id": "<set-after-d1-create>", "migrations_dir": "migrations" }],
+  "r2_buckets": [{ "binding": "ARTIFACTS", "bucket_name": "campsite-artifacts" }],
+  "browser": { "binding": "BROWSER" },
+  "durable_objects": { "bindings": [{ "name": "WORKSPACE_RUNTIME", "class_name": "WorkspaceRuntimeDO" }] },
+  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["WorkspaceRuntimeDO"] }],
+  "triggers": { "crons": ["*/5 * * * *"] },
+  "observability": { "enabled": true }
+}

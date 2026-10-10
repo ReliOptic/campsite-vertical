@@ -1,0 +1,62 @@
+{
+  "schema": 1,
+  "title": "데이터센터 전력 병목",
+  "summary": "전력→건설→서버→반도체 인과를 3D로",
+  "entry": "index.html",
+  "poster": "poster.png",
+  "aspect": "9:16",
+  "durationHintMs": 30000,
+  "files": [
+    {
+      "path": "index.html",
+      "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "bytes": 100
+    },
+    {
+      "path": "poster.png",
+      "sha256": "1111111111111111111111111111111111111111111111111111111111111111",
+      "bytes": 100
+    }
+  ],
+  "generator": {
+    "runId": "r_fixture",
+    "modelId": "stub"
+  },
+  "features": [
+    "motion",
+    "3d",
+    "interactive"
+  ],
+  "scenes": [
+    {
+      "id": "intro",
+      "label": "한 줄 요약",
+      "atMs": 0
+    },
+    {
+      "id": "chain",
+      "label": "인과 사슬",
+      "atMs": 6000
+    },
+    {
+      "id": "outlook",
+      "label": "전망",
+      "atMs": 18000
+    }
+  ],
+  "captions": [
+    {
+      "atMs": 0,
+      "text": "전력이 먼저다"
+    },
+    {
+      "atMs": 6000,
+      "text": "건설이 늦으면 서버도 늦는다"
+    }
+  ],
+  "sources": [
+    {
+      "label": "IEA 2026 전력 수요 전망"
+    }
+  ]
+}

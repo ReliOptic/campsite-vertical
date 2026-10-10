@@ -1,0 +1,16 @@
+{
+  "items": [
+    {
+      "channelId": "ch_pub",
+      "title": "전력 인프라",
+      "publisher": {
+        "workspaceId": "ws_other",
+        "name": "Hana",
+        "avatarUrl": null
+      },
+      "subscribedAt": "2026-10-10T00:00:00.000Z",
+      "latestVistaId": "v_pub",
+      "latestPosterUrl": "https://vista.example.test/v/fixture/poster.png"
+    }
+  ]
+}

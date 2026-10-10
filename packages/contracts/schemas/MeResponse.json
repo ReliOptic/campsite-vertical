@@ -17,7 +17,7 @@
         "email": {
           "type": "string",
           "format": "email",
-          "pattern": "^(?:[A-Za-z0-9_'+\\-]+\\.)*[A-Za-z0-9_'+\\-]*[A-Za-z0-9_+-]@(?:[A-Za-z0-9][A-Za-z0-9\\-]*\\.)+[A-Za-z]{2,}$"
+          "pattern": "^(?!\\.)(?!.*\\.\\.)([A-Za-z0-9_'+\\-\\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\\-]*\\.)+[A-Za-z]{2,}$"
         },
         "avatarUrl": {
           "anyOf": [
@@ -38,6 +38,12 @@
         "avatarUrl"
       ],
       "additionalProperties": false
+    },
+    "workspaceId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[a-zA-Z0-9_-]+$"
     },
     "plan": {
       "type": "string",
@@ -96,12 +102,49 @@
         "runsToday"
       ],
       "additionalProperties": false
+    },
+    "model": {
+      "type": "object",
+      "properties": {
+        "connected": {
+          "type": "boolean"
+        },
+        "provider": {
+          "type": "string",
+          "const": "openrouter"
+        },
+        "modelId": {
+          "type": "string"
+        },
+        "keyHint": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "connected"
+      ],
+      "additionalProperties": false
+    },
+    "nextUpdateAt": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "date-time",
+          "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z))$"
+        },
+        {
+          "type": "null"
+        }
+      ]
     }
   },
   "required": [
     "user",
+    "workspaceId",
     "plan",
-    "usage"
+    "usage",
+    "model",
+    "nextUpdateAt"
   ],
   "additionalProperties": false
 }

@@ -86,6 +86,96 @@
         "modelId"
       ],
       "additionalProperties": false
+    },
+    "features": {
+      "minItems": 1,
+      "maxItems": 3,
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "motion",
+          "3d",
+          "interactive"
+        ]
+      }
+    },
+    "scenes": {
+      "maxItems": 24,
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "pattern": "^[a-zA-Z0-9_-]+$"
+          },
+          "label": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 80
+          },
+          "atMs": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 120000
+          }
+        },
+        "required": [
+          "id",
+          "label",
+          "atMs"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "captions": {
+      "maxItems": 60,
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "atMs": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 120000
+          },
+          "text": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          }
+        },
+        "required": [
+          "atMs",
+          "text"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "sources": {
+      "maxItems": 12,
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "label": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 120
+          },
+          "note": {
+            "type": "string",
+            "maxLength": 300
+          }
+        },
+        "required": [
+          "label"
+        ],
+        "additionalProperties": false
+      }
     }
   },
   "required": [

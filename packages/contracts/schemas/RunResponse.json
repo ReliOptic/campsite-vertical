@@ -10,7 +10,8 @@
         "RUNNING",
         "VALIDATING",
         "READY",
-        "FAILED"
+        "FAILED",
+        "SKIPPED"
       ]
     },
     "phase": {
@@ -21,6 +22,15 @@
         "DRAFTING",
         "VERIFYING",
         "DONE"
+      ]
+    },
+    "trigger": {
+      "type": "string",
+      "enum": [
+        "initial",
+        "manual",
+        "scheduled",
+        "fork"
       ]
     },
     "vistaId": {

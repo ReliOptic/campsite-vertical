@@ -1,0 +1,197 @@
+{
+  "environment": "local-node (node:sqlite, fs store, Playwright Chromium validator, stub model)",
+  "results": [
+    {
+      "name": "V1 Hana: model sheet opens first on a fresh account",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "V1 Hana: prompt sheet follows model connection",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "V1 Hana: key never echoed, hint only",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "V1 Minsu: model sheet opens first on a fresh account",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "V1 Minsu: prompt sheet follows model connection",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "V1 Minsu: key never echoed, hint only",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "V1 Jiwoo: model sheet opens first on a fresh account",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "V1 Jiwoo: prompt sheet follows model connection",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "V1 Jiwoo: key never echoed, hint only",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "V1 three accounts → three distinct workspaces",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "V2 Hana: status line shows progress copy",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "V2 Hana: Vista ready in For Me (real Chromium validation)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "V2 Hana: feed has one READY vista with features/scenes",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "V2 iframe sandbox is exactly allow-scripts",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "V2 Vista served from the separate origin with CSP",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "V2 channel rail shows the latest poster",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "V2 reload restores the same Vista",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "V3 Minsu: Discovery is empty before anyone publishes",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "V3 Hana: publish confirmed in-app",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "V3 Minsu: Hana's published Vista appears in Discovery with publisher",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "V3 Minsu: subscribed (rail + guide reflect it; subscriptions API lists it)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "V3 Minsu: fork copies the Vista into For Me with origin and re-runs with Minsu's key",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "V3 Minsu: forked channel regenerated a second Vista",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "V3 Jiwoo: Discovery lists both publications; fork count on Hana's = 1",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "V3 Jiwoo: cannot read Minsu's private (unpublished) forked copy",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "V3 Jiwoo: own-feed isolation (empty) and discovery excludes own items",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "V5 Duo open: same vista continues in the right pane, left pane shows scenes/captions",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "V5 scene change is committed as portable state",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "V5 reload restores Duo state from the server",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "V6 ask answers in the sheet with Vista context",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "V6 deep dive offers ChatGPT / Claude hand-off",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "V4 scheduled slot due → sweep → new Vista for Hana (no UI involved)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "V4 schedule advanced and exactly one scheduled run exists",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "V1 Hana: logout returns to the plain homepage",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "V1 Hana: re-login restores workspace, channel and Vistas",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "V0 Hana: no page errors",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "V0 Minsu: no page errors",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "V0 Jiwoo: no page errors",
+      "ok": true,
+      "detail": ""
+    }
+  ],
+  "failed": 0,
+  "at": "2026-10-10T12:24:44.024Z"
+}

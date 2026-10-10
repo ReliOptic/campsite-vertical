@@ -9,3 +9,7 @@ __pycache__/
 test-results/
 playwright-report/
 services/runner/out/
+apps/web/dist/
+.campsite/
+e2e/scratch/
+e2e/artifacts/

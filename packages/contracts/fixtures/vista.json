@@ -1,9 +1,18 @@
 {
   "vistaId": "v_fixture",
+  "revisionId": "rev_fixture",
+  "channelId": "ch_fixture",
   "title": "HBM 시장",
   "summary": "시장 비교",
   "aspect": "9:16",
+  "features": [
+    "motion"
+  ],
   "playUrl": "https://vista.example.test/v/fixture/index.html",
   "posterUrl": "https://vista.example.test/v/fixture/poster.png",
-  "expiresAt": "2026-10-10T00:10:00.000Z"
+  "expiresAt": "2026-10-10T00:10:00.000Z",
+  "published": false,
+  "owned": true,
+  "origin": null,
+  "durationHintMs": 30000
 }

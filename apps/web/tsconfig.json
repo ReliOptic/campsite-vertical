@@ -1,0 +1,8 @@
+{"extends":"../../tsconfig.base.json","compilerOptions":{"noEmit":true,"jsx":"react-jsx","lib":["ES2022","DOM","DOM.Iterable"],"types":["node"],"rootDir":"../../..","paths":{
+  "radix-ui":["../../../.vendor/primitives/packages/react/radix-ui/src/index.ts"],
+  "@radix-ui/react-*":["../../../.vendor/primitives/packages/react/*/src/index.ts"],
+  "@radix-ui/*":["../../../.vendor/primitives/packages/core/*/src/index.ts"],
+  "@radix-ui/primitive/is-development":["../../../.vendor/primitives/packages/core/primitive/src/internal/is-development.false.ts"],
+  "lucide-react":["./src/vendor/lucide-react.tsx"],
+  "detect-node-es":["./src/vendor/detect-node-es.ts"]
+}},"include":["src","tests","scripts"]}
