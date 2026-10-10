@@ -35,14 +35,15 @@ for (let i = 0; i < 60; i++) { try { const r = await fetch(`${origin}/auth/optio
 
 const browser = await chromium.launch();
 const KEY = 'sk-or-v1-' + 'e2e0e2e0'.repeat(6);
-async function account(name, device = 'iphone') {
+async function account(name, device = 'iphone', own = false) {
   const ctx = await browser.newContext({ viewport: { width: 1280, height: 900 } });
   const page = await ctx.newPage();
   const errors = [];
   page.on('pageerror', e => errors.push(e.message));
   page.on('console', m => { if (m.type() === 'error' && !/401|404/.test(m.text())) errors.push(m.text()); });
   await page.goto(`${origin}/?device=${device}`);
-  await page.getByTestId(`dev-login-${name.toLowerCase()}`).click({ timeout: 15000 });
+  if (own) { await page.getByTestId('own-name').fill(name, { timeout: 15000 }); await page.getByTestId('own-login').click(); }
+  else await page.getByTestId(`dev-login-${name.toLowerCase()}`).click({ timeout: 15000 });
   const api = async (method, path, body) => page.evaluate(async ({ method, path, body }) => { const r = await fetch(path, { method, headers: body ? { 'Content-Type': 'application/json' } : {}, body: body ? JSON.stringify(body) : undefined }); return { status: r.status, body: await r.json().catch(() => null) }; }, { method, path, body });
   return { name, ctx, page, errors, api, shot: (n) => page.screenshot({ path: resolve(shots, `${name.toLowerCase()}-${n}.png`) }) };
 }
@@ -50,7 +51,7 @@ const waitVista = (page, timeout = 90000) => page.waitForSelector('[data-testid=
 
 try {
   // ---- V1 accounts & BYOK ----------------------------------------------------------------------
-  const hana = await account('Hana'), minsu = await account('Minsu'), jiwoo = await account('Jiwoo');
+  const hana = await account('Hana'), minsu = await account('Minsu'), jiwoo = await account('Jiwoo', 'iphone', true); // Jiwoo is created through the 'own account' form
   const mes = {};
   for (const a of [hana, minsu, jiwoo]) {
     await expect(`V1 ${a.name}: model sheet opens first on a fresh account`, () => a.page.getByTestId('model-sheet').waitFor({ timeout: 10000 }));
@@ -141,6 +142,8 @@ try {
   await hana.shot('09-relogin');
 
   for (const a of [hana, minsu, jiwoo]) await expect(`V0 ${a.name}: no page errors`, async () => a.errors.length === 0 ? true : a.errors.slice(0, 2).join(' | '));
+} catch (e) {
+  check('harness: no uncaught error', false, String(e?.stack ?? e).slice(0, 300));
 } finally {
   await browser.close();
   try { process.kill(-server.pid, 'SIGTERM'); } catch { server.kill(); }

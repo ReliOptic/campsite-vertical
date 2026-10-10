@@ -2,7 +2,7 @@
 export const copy = {
   brand: 'Campsite',
   tagline: '같은 정보, 더 밝은 내일.',
-  landing: { lead: '내 관심사가 매일 한 편의 Vista로 도착합니다.', google: 'Google로 계속하기', devTitle: '체험 계정으로 들어가기', devHint: '같은 계정으로 다시 들어오면 그대로 이어집니다.' },
+  landing: { lead: '내 관심사가 매일 한 편의 Vista로 도착합니다.', google: 'Google로 계속하기', devTitle: '체험 계정으로 들어가기', devHint: '같은 계정으로 다시 들어오면 그대로 이어집니다.', ownName: '이름', ownEmail: '이메일(선택)', ownGo: '만들기' },
   mode: { forMe: 'For Me', discovery: 'Discovery' },
   model: {
     title: '어떤 모델로 만들까요',

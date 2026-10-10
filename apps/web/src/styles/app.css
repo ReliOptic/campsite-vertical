@@ -1,63 +1,86 @@
 @import "tailwindcss";
+@import "./vendor/tw-animate.css";
+@import "./vendor/shadcn-tailwind.css";
 
-/* Campsite tokens — white ground, charcoal ink, brand tints used only as placeholders/accents. */
-@theme {
-  --color-paper: #FFFFFF;
-  --color-snow: #FAF9F6;
-  --color-ink: #1F1F1F;
-  --color-stone: #D7D7D2;
-  --color-mist: #EFEFEC;
-  --color-muted: #6B6B6B;
+/* shadcn/ui (new-york v4) theme — Campsite: pure white ground (#FFFFFF), black components (#000000). */
+@theme inline {
+  --font-sans: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Noto Sans KR", "Segoe UI", system-ui, sans-serif;
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  /* Brand tints from the identity board, used only for channel placeholders. */
   --color-butter: #FFE7C7;
   --color-sky: #D6E6FF;
   --color-lavender: #E9D6FF;
-  --font-sans: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Noto Sans KR", "Segoe UI", system-ui, sans-serif;
-  --radius-pill: 999px;
   --ease-enter: cubic-bezier(0.2, 0.8, 0.2, 1);
   --ease-exit: cubic-bezier(0.4, 0, 0.8, 0.2);
   --ease-change: cubic-bezier(0.2, 0, 0, 1);
-  --duration-open: 320ms;
-  --duration-close: 240ms;
-  --duration-receipt: 180ms;
-  --duration-text: 120ms;
-  --duration-result: 220ms;
-  --duration-relayout: 180ms;
+}
+
+:root {
+  --radius: 0.75rem;
+  --background: #FFFFFF;
+  --foreground: #000000;
+  --card: #FFFFFF;
+  --card-foreground: #000000;
+  --popover: #FFFFFF;
+  --popover-foreground: #000000;
+  --primary: #000000;
+  --primary-foreground: #FFFFFF;
+  --secondary: #F2F2F2;
+  --secondary-foreground: #000000;
+  --muted: #F2F2F2;
+  --muted-foreground: #6B6B6B;
+  --accent: #F2F2F2;
+  --accent-foreground: #000000;
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: #FFFFFF;
+  --border: #E6E6E6;
+  --input: #E6E6E6;
+  --ring: #000000;
 }
 
 @layer base {
+  * { @apply border-border outline-ring/50; }
   html, body, #root { height: 100%; }
-  body { margin: 0; background: #E9E9E6; color: var(--color-ink); font-family: var(--font-sans); -webkit-font-smoothing: antialiased; overflow: hidden; }
-  button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; -webkit-tap-highlight-color: transparent; }
-  button:focus-visible, a:focus-visible, textarea:focus-visible, input:focus-visible { outline: 2px solid var(--color-ink); outline-offset: 3px; }
-  textarea, input { font: inherit; }
+  body { @apply bg-background text-foreground font-sans antialiased; margin: 0; overflow: hidden; }
+  textarea, input, button { font: inherit; }
 }
 
-/* The phone screen itself: everything inside is logical px of the device fixture. */
-.screen { position: relative; width: 100%; height: 100%; overflow: hidden; background: var(--color-paper); }
-.screen-push { transform-origin: 50% 100%; will-change: transform; }
-
-/* Sheet from the top (Muse-style). Screen content is pushed down, sheet descends. */
-.sheet-enter { animation: sheet-in var(--duration-open) var(--ease-enter) both; }
-.sheet-exit { animation: sheet-out var(--duration-close) var(--ease-exit) both; }
-@keyframes sheet-in { from { transform: translateY(-24px); opacity: 0; } to { transform: none; opacity: 1; } }
-@keyframes sheet-out { from { transform: none; opacity: 1; } to { transform: translateY(-16px); opacity: 0; } }
-.backdrop-enter { animation: fade-in var(--duration-receipt) var(--ease-enter) both; }
-.backdrop-exit { animation: fade-out var(--duration-receipt) var(--ease-exit) both; }
-@keyframes fade-in { from { opacity: 0; } to { opacity: 0.28; } }
-@keyframes fade-out { from { opacity: 0.28; } to { opacity: 0; } }
-.receipt-enter { animation: receipt-in var(--duration-receipt) var(--ease-enter) both; }
+/* Phone screen: logical px of the device fixture. The screen content is pushed down while a top sheet is open. */
+.screen { position: relative; width: 100%; height: 100%; overflow: hidden; background: #FFFFFF; }
+.screen-push { transform-origin: 50% 100%; will-change: transform; transition: transform 320ms var(--ease-enter), border-radius 320ms var(--ease-enter); }
+.screen-push[data-pushed="true"] { transition-timing-function: var(--ease-enter); }
+.relayout { transition: left 180ms var(--ease-change), top 180ms var(--ease-change), width 180ms var(--ease-change), height 180ms var(--ease-change), transform 320ms var(--ease-enter); }
+.receipt-enter { animation: receipt-in 180ms var(--ease-enter) both; }
 @keyframes receipt-in { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: none; } }
-.result-enter { animation: result-in var(--duration-result) var(--ease-change) both; }
-@keyframes result-in { from { opacity: 0; } to { opacity: 1; } }
-.relayout { transition: left var(--duration-relayout) var(--ease-change), top var(--duration-relayout) var(--ease-change), width var(--duration-relayout) var(--ease-change), height var(--duration-relayout) var(--ease-change), transform var(--duration-open) var(--ease-enter); }
-.update-ring { box-shadow: 0 0 0 2px var(--color-paper), 0 0 0 4px var(--color-ink); }
 .pulse-dot { animation: pulse-dot 1.2s ease-in-out infinite; }
 @keyframes pulse-dot { 0%, 100% { opacity: 0.35; } 50% { opacity: 1; } }
-.spin-slow { animation: spin 1.4s linear infinite; }
-@keyframes spin { to { transform: rotate(360deg); } }
 
 @media (prefers-reduced-motion: reduce) {
-  .sheet-enter, .sheet-exit, .backdrop-enter, .backdrop-exit, .receipt-enter, .result-enter { animation-duration: 100ms !important; animation-name: fade-in !important; }
-  .relayout { transition-duration: 1ms !important; }
-  .screen-push { transition-duration: 1ms !important; }
+  .screen-push, .relayout { transition-duration: 1ms !important; }
+  .receipt-enter { animation-duration: 100ms !important; }
 }

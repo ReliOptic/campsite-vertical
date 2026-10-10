@@ -4,6 +4,7 @@ import { readFileSync, writeFileSync, mkdirSync, readdirSync, statSync, copyFile
 import { join, dirname, resolve } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { createRequire } from 'node:module';
+import { aliases } from './aliases.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const require = createRequire(import.meta.url);
@@ -12,7 +13,7 @@ const outDir = join(root, 'dist');
 mkdirSync(outDir, { recursive: true });
 
 function walk(dir, out = []) { for (const e of readdirSync(dir)) { const p = join(dir, e); if (statSync(p).isDirectory()) walk(p, out); else if (/\.(tsx?|html|css)$/.test(e)) out.push(p); } return out; }
-const CANDIDATE_RE = /[^\s"'`<>=]+/g;
+const CANDIDATE_RE = /[^\s"'`<>]+/g;
 function candidates() {
   const set = new Set();
   for (const f of walk(join(root, 'src'))) for (const m of readFileSync(f, 'utf8').match(CANDIDATE_RE) ?? []) set.add(m);
@@ -22,7 +23,7 @@ async function css() {
   const twRoot = resolve(dirname(fileURLToPath(import.meta.url)), '../../../node_modules/tailwindcss');
   const { compile } = require(join(twRoot, 'dist/lib.js'));
   const source = readFileSync(join(root, 'src/styles/app.css'), 'utf8');
-  const compiler = await compile(source, { base: root, loadStylesheet: async (id, base) => {
+  const compiler = await compile(source, { base: join(root, 'src/styles'), loadStylesheet: async (id, base) => {
     const p = id === 'tailwindcss' ? join(twRoot, 'index.css') : id.startsWith('tailwindcss/') ? join(twRoot, id.slice('tailwindcss/'.length)) : resolve(base, id);
     return { path: p, base: dirname(p), content: readFileSync(p, 'utf8') };
   } });
@@ -30,7 +31,7 @@ async function css() {
 }
 const esbuildOptions = {
   entryPoints: [join(root, 'src/main.tsx')], bundle: true, outfile: join(outDir, 'app.js'), format: 'esm', target: ['es2022', 'safari16'], jsx: 'automatic',
-  sourcemap: true, minify: !watch, define: { 'process.env.NODE_ENV': JSON.stringify(watch ? 'development' : 'production') }, logLevel: 'info', legalComments: 'none',
+  alias: aliases, tsconfigRaw: '{}', sourcemap: true, minify: !watch, define: { 'process.env.NODE_ENV': JSON.stringify(watch ? 'development' : 'production') }, logLevel: 'info', legalComments: 'none',
 };
 async function html() {
   copyFileSync(join(root, 'public/index.html'), join(outDir, 'index.html'));

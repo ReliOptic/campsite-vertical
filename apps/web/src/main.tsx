@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client';
 import { store, useStore, type Device } from './lib/store';
 import { DeviceStage } from './components/campsite/device';
 import { Landing, Shell } from './components/campsite/screen';
+import { Tabs, TabsList, TabsTrigger } from './components/ui/tabs';
 import { copy } from './copy';
 import { Logo } from './components/ui/logo';
 
@@ -12,10 +13,12 @@ function DeviceToolbar() {
   return (
     <>
       <Logo size={20} wordmark />
-      <div className="flex items-center gap-1 rounded-pill bg-white p-1 shadow-[0_1px_4px_rgba(0,0,0,0.08)]" role="tablist" aria-label="device">
-        {opts.map(([d, label]) => <button key={d} role="tab" aria-selected={device === d} data-testid={`device-${d}`} onClick={() => store.setDevice(d)} className={`h-8 rounded-pill px-3 text-[13px] ${device === d ? 'bg-ink text-white' : 'text-ink/70'}`}>{label}</button>)}
-      </div>
-      <span className="text-[11px] tracking-[0.04em] text-ink/50">{copy.tagline}</span>
+      <Tabs value={device} onValueChange={v => store.setDevice(v as Device)}>
+        <TabsList className="h-9 rounded-full">
+          {opts.map(([d, label]) => <TabsTrigger key={d} value={d} data-testid={`device-${d}`} className="h-7 rounded-full px-3 text-[13px] data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">{label}</TabsTrigger>)}
+        </TabsList>
+      </Tabs>
+      <span className="text-[11px] text-muted-foreground">{copy.tagline}</span>
     </>
   );
 }

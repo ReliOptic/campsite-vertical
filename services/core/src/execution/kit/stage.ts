@@ -1,6 +1,6 @@
 /** Shared stage CSS + scene runtime used by reference Vistas (and offered to the model in the system prompt). */
 export const STAGE_CSS = String.raw`
-:root{--snow:#FAF9F6;--charcoal:#1F1F1F;--stone:#D7D7D2;--butter:#FFE7C7;--sky:#D6E6FF;--lavender:#E9D6FF;--ink:#1F1F1F;--muted:#6b6b6b;--ease:cubic-bezier(.2,.8,.2,1);--font:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR","Segoe UI",sans-serif}
+:root{--snow:#FFFFFF;--charcoal:#1F1F1F;--stone:#D7D7D2;--butter:#FFE7C7;--sky:#D6E6FF;--lavender:#E9D6FF;--ink:#1F1F1F;--muted:#6b6b6b;--ease:cubic-bezier(.2,.8,.2,1);--font:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR","Segoe UI",sans-serif}
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{width:100%;height:100%;overflow:hidden;background:var(--snow);color:var(--ink);font-family:var(--font);-webkit-font-smoothing:antialiased}
 .stage-fit{position:fixed;inset:0;overflow:hidden}

@@ -21,7 +21,7 @@ export interface AppDeps {
 }
 export interface Ctx { principal?: Principal; sessionToken?: string }
 const COOKIE = 'campsite_session';
-export const DEV_ACCOUNTS = [{ email: 'hana@campsite.test', name: 'Hana' }, { email: 'minsu@campsite.test', name: 'Minsu' }, { email: 'jiwoo@campsite.test', name: 'Jiwoo' }];
+export const DEV_ACCOUNTS = [{ email: 'hana@campsite.test', name: 'Hana' }, { email: 'minsu@campsite.test', name: 'Minsu' }];
 
 export function createApp(d: AppDeps) {
   const r = new Router<Ctx>();

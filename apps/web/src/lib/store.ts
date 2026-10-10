@@ -164,7 +164,7 @@ class Store {
 
   // ---- sheets / feedback ----------------------------------------------------------
   openSheet(sheet: Sheet) { this.set({ sheet, closingSheet: null, askAnswer: sheet?.kind === 'ask' ? null : this.state.askAnswer }); }
-  closeSheet() { const sheet = this.state.sheet; if (!sheet) return; this.set({ sheet: null, closingSheet: sheet }); setTimeout(() => { if (this.state.closingSheet === sheet) this.set({ closingSheet: null }); }, 260); }
+  closeSheet() { if (this.state.sheet) this.set({ sheet: null, closingSheet: null }); }
   toast(text: string) { this.set({ toast: text }); setTimeout(() => { if (this.state.toast === text) this.set({ toast: null }); }, 2600); }
   receipt(text: string) { setTimeout(() => { this.set({ receipt: text }); setTimeout(() => { if (this.state.receipt === text) this.set({ receipt: null }); }, 2400); }, 160); }
   private fail(e: unknown) {
